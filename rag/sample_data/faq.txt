@@ -1,0 +1,7 @@
+Frequently Asked Questions
+
+Q: What should the system store besides embeddings?
+A: The system should also keep a metadata store or document store for original text, page numbers, titles, sections, and chunk identifiers.
+
+Q: Why separate the vector database and metadata store?
+A: The vector database is optimized for nearest-neighbor retrieval, while the metadata store is used to recover raw text and citation details.

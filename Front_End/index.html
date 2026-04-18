@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Q&A Assistant</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape shape-a"></div>
+    <div class="bg-shape shape-b"></div>
+    <div class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">RAG Course Assistant Demo</p>
+          <h1>Course Q&A Assistant</h1>
+          <p class="subtitle">
+            Compare Direct LLM vs RAG answers with evidence-backed citations.
+          </p>
+        </div>
+        <div class="runtime-control">
+          <span id="backend-endpoint" class="endpoint-pill"></span>
+        </div>
+      </header>
+
+      <section class="panel query-panel">
+        <label for="question-input">Your Question</label>
+        <div class="query-row">
+          <textarea
+            id="question-input"
+            rows="2"
+            placeholder="Example: How should we compare Direct LLM and RAG answer quality in AI6130?"
+          ></textarea>
+          <button id="ask-button" class="primary-btn">Run Comparison</button>
+        </div>
+
+        <div class="query-options">
+          <label class="option-field" for="answer-language">
+            <span>Answer Language</span>
+            <select id="answer-language">
+              <option value="auto">Auto</option>
+              <option value="zh">Chinese</option>
+              <option value="en">English</option>
+            </select>
+          </label>
+          <label class="check-inline">
+            <input id="english-terms" type="checkbox" checked />
+            <span>Use English terminology in Chinese answers</span>
+          </label>
+        </div>
+
+      </section>
+
+      <main class="main-grid">
+        <section class="panel left-panel">
+          <div class="panel-header">
+            <h2>Document Library</h2>
+            <span id="doc-count" class="tag"></span>
+          </div>
+
+          <form id="upload-form" class="upload-form">
+            <input id="pdf-input" type="file" accept=".pdf" multiple class="hidden-file-input" />
+            <div class="file-picker">
+              <button id="pick-files-btn" type="button" class="ghost-btn">Choose Files</button>
+              <span id="file-summary" class="file-summary">No files selected</span>
+            </div>
+            <button type="submit" class="secondary-btn">Upload Selected PDFs</button>
+            <div class="hint-text">
+              Tip: hold Ctrl/Shift to choose multiple files in one batch.
+            </div>
+          </form>
+
+          <div class="pipeline">
+            <div class="pipeline-title">Ingestion Pipeline</div>
+            <ol id="pipeline-list"></ol>
+            <div class="progress-wrap">
+              <div id="ingest-progress" class="progress-bar"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="panel-subtitle">Indexed Documents</div>
+            <ul id="document-list" class="document-list"></ul>
+          </div>
+        </section>
+
+        <section class="panel answer-panel">
+          <div class="panel-header">
+            <h2>Direct LLM</h2>
+            <span id="direct-latency" class="tag"></span>
+          </div>
+          <article id="direct-answer" class="answer-body empty">Waiting for query...</article>
+        </section>
+
+        <section class="panel answer-panel rag-panel">
+          <div class="panel-header">
+            <h2>RAG Answer</h2>
+            <span id="rag-latency" class="tag"></span>
+          </div>
+          <article id="rag-answer" class="answer-body empty">Waiting for query...</article>
+
+          <div class="citation-section">
+            <div class="panel-subtitle">Citation Chunks</div>
+            <ul id="citation-list" class="citation-list"></ul>
+            <div id="citation-detail" class="citation-detail empty">
+              Click a citation ID to inspect the evidence snippet.
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <section class="panel metrics-panel">
+        <div class="panel-header">
+          <h2>Evaluation</h2>
+          <span id="question-id" class="tag"></span>
+        </div>
+        <div id="metrics-grid" class="metrics-grid"></div>
+      </section>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
